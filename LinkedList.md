@@ -17,3 +17,34 @@
 
 # 二、回溯算法
 
+# 三、迭代/递归
+
+## 例题：
+  206.反转链表
+  ```
+  
+  #迭代
+  prev = None
+  curr = head
+  while curr:
+    nxt = curr.next
+    curr.next = prev
+    prev = curr
+    curr = nxt
+  return prev
+  
+  ```
+  
+  ```
+  
+  #递归
+  if head == None or head.next==None:
+    return head
+  last = reverseList(head.next)
+  head.next.next = head
+  head.next = None
+  return last
+  
+  ```
+  
+
