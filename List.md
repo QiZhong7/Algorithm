@@ -1,10 +1,20 @@
 # 一、分治
-##例题
+## 例题
 169.多数元素
 
+# 二、位运算
+## 例题
 
-# 二、Boyer-Moore投票算法
-##例题
+136.只出现一次的数字
+异或运算中，0 XOR 0 = 0, 0 XOR 1 = 1, 1 XOR 0 = 1, 1 XOR 1 = 1。异或运算也满足交换律和结合律。
+```
+  return reduce(lambada x,y:x^y, nums)
+  #reduce(function, iterable[]可迭代对象), reduce函数会对参数序列中元素进行function操作。
+```
+
+
+# 三、Boyer-Moore投票算法
+## 例题
 
 169.多数元素
 维护一个候选众数***candidate***,和他出现的次数***count***。***candidate***可以为任意值，***count***为0。
@@ -12,3 +22,5 @@
   1.如果x与candidate相等，那么count增加1
   2.如果x与candidate不等，那么count减少1
 遍历完，***candidate***的值即为整个数组的众数
+
+
