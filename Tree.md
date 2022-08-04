@@ -80,4 +80,32 @@ while current:
 
 ```
 
+# 二、DFS
+
+## 例题
+236.二叉树的公共祖先
+```
+#递归
+if not root or root==p or root==q:
+  return root
+#从底部向上传的数据只有 有p为孩子的节点，有q为孩子的节点和None
+left = self....(root.left,p,q)
+right = self....(root.right,p,q)
+#左子树包含p或q
+if left and not right:
+  return left
+#右子树包含p或q
+if right and not left:
+  return right
+#left和right为空，说明root的左右都不包含p，q
+if not right and not left:
+  return None
+#当left和right都不为空时，说明p和q在当前节点的两边，直接返回root
+return root
+
+#哈希表
+建立节点和他的父节点的哈希表，通过迭代建立哈希表后，再用一个visited列表存储便利过的p的所有ancestor，再遍历q的ancestor求出他们的公共祖先
+
+```
+
 
