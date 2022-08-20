@@ -56,4 +56,56 @@ for i in range(m):
 return dp[m][n]
 ```
 
+# 六、特殊处理方法
+## 例题
+
+### 1. 标记法，交换法
+41.缺失的第一个正数
+
+对于一个长度为n的数组，缺失的第一个正整数只能出现在[1,n+1]中，这是因为如果1-n都出现了，那么答案就是n+1；如果n+1出现了，那么答案就是1-n中最小的正整数。
+所以我们可以用哈希表来表示1-n的数是否出现过，但是此题的目标空间复杂度为O（1），我们需要把题目给的数组当作一个特殊的哈希表来进行标记：
+对于数组中的正整数，应该如何证明他在1-n中并且我们已经遍历过呢？标记法采取的方法是，我们遍历数组的下标i时，如果nums[i]是一个正整数，那么我们可以通过把nums[nums[i]-1]
+的元素变为负数来证明这个数出现在了数组中，同时大于n的数不需要操作，因为超出了数组的下标大小。
+
+因为我们做标记的方法是取负，所以要提前对数组中的负数进行额外操作。这里是把他们变成值为n+1的正整数，不会干扰到以上的操作。
+
+```
+#标记法
+class Solution:
+    def firstMissingPositive(self, nums: List[int]) -> int:
+        n = len(nums)
+
+        for i in range(n):
+            if nums[i] <= 0 :
+                nums[i] = n+1
+            
+        for i in range(n):
+            # 我们遍历数组中的每一个数x时，有可能这个数已经被变为负数，所以要取绝对值。
+            temp = abs(nums[i])
+            if temp<=n:
+                nums[temp-1] = -abs(nums[temp-1])
+
+        for i in range(n):
+            #第一个正整数的位置再加1就是答案。
+            if nums[i] > 0 :
+                return i+1
+        
+        return n+1
+        
+        
+#交换法
+#把1-n之间的数字通过交换到正确的位置，第一个不正确位置的数字就是答案
+class Solution:
+    def firstMissingPositive(self, nums: List[int]) -> int:
+        n = len(nums)
+        for i in range(n):
+            while 1 <= nums[i] <= n and nums[nums[i] - 1] != nums[i]:
+                nums[nums[i] - 1], nums[i] = nums[i], nums[nums[i] - 1]
+        for i in range(n):
+            if nums[i] != i + 1:
+                return i + 1
+        return n + 1
+
+```
+
 
