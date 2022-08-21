@@ -2,7 +2,11 @@
 ## 例题
 169.多数元素
 
+4.寻找两个正序数组的中位数
+
 # 二、位运算
+
+通常用于需要快速幂
 ## 例题
 
 136.只出现一次的数字
@@ -13,8 +17,30 @@
   #reduce(function, iterable[]可迭代对象), reduce函数会对参数序列中元素进行function操作。
 ```
 
+# 三、运用栈堆
 
-# 三、Boyer-Moore投票算法
+## 例题
+
+剑指offer 40. 最小的k个数
+
+运用小根堆（python中只有小根堆）来储存最小的k个数
+```
+class Solution:
+    def getLeastNumbers(self, arr: List[int], k: int) -> List[int]:
+        if k==0:
+            return []
+        hp = [-x for x in arr[:k]]
+        heapq.heapify(hp)
+        for i in range(k, len(arr)):
+            if -hp[0] > arr[i]:
+                heapq.heappop(hp)
+                heapq.heappush(hp, -arr[i])
+        res = [-x for x in hp]
+        return res
+```
+
+
+# 四、Boyer-Moore投票算法
 ## 例题
 
 169.多数元素
@@ -26,7 +52,7 @@
 遍历完，***candidate***的值即为整个数组的众数
 
 
-# 四、模拟
+# 五、模拟
 ## 例题
 
 292.Nim游戏
@@ -34,7 +60,7 @@
 如果堆中有4块石头，一定会失败，因为你拿1，2，3块，对手都有办法拿到剩下的几块。堆中有5，6，7块的时候，你可以分别拿1，2，3块，从而对手无论拿多少块，都会有剩下的。
 当对手有8块的时候，跟4块的情况相似。类推我们可以得出，必须避免石头堆中的石子数为4的倍数的情况。
 
-# 五、动态规划
+# 六、动态规划
 ## 例题
 
 1143.最长公共子序列
@@ -56,7 +82,7 @@ for i in range(m):
 return dp[m][n]
 ```
 
-# 六、特殊处理方法
+# 七、特殊处理方法
 ## 例题
 
 ### 1. 标记法，交换法
