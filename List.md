@@ -1,8 +1,35 @@
 # 一、分治
 ## 例题
-169.多数元素
+169. 多数元素
 
-4.寻找两个正序数组的中位数
+4. 寻找两个正序数组的中位数
+
+34. 在排序数组中查找元素的第一个和最后一个位置
+
+```
+# 元素的第一个就是第一个大于等于target的下标，元素的最后一个位置就是第一个大于target的下标-1
+class Solution:
+    def searchRange(self, nums: List[int], target: int) -> List[int]:
+       
+        rightans, leftans = 0, 0
+        def searchhelper(left, right, lower):
+            self.ans = len(nums)
+            while left<=right:
+                mid = left+(right-left)//2
+                if nums[mid]>target or (lower and nums[mid]>=target):
+                    right = mid-1
+                    self.ans = mid
+                else:
+                    left = mid +1
+            return self.ans
+        n = len(nums)
+        leftans = searchhelper(0, n-1, True)
+        rightans = searchhelper(0, n-1, False)-1
+        if leftans<=rightans and nums[rightans] == target and nums[leftans] == target:
+            return [leftans, rightans]
+        else:
+            return [-1,-1]
+```
 
 # 二、位运算
 
