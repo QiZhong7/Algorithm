@@ -62,3 +62,82 @@ class Solution:
                 res += num*sign
         return res
 ```
+
+## 2. 括号
+
+```
+class Solution:
+    def minRemoveToMakeValid(self, s: str) -> str:
+        #存放能对应括号
+        stack = []
+        #有些特殊情况，比如stack为空但是遇到一个右括号，还有在字符串末尾遇到一个左括号，这时候直接加到location列表里
+        location = []
+
+        n = len(s)
+        for i in range(n):
+            if s[i] not in "()":
+                continue
+            if s[i] == "(":
+                stack.append(i)
+            elif s[i] == ")" and stack:
+                stack.pop()      
+            else:
+                location.append(i)
+        string = list(s)
+        location = location+stack
+        for i in location:
+            string[i] = ""
+        return "".join(string)
+
+```
+
+返回所有可能性
+```
+class Solution:
+    def removeInvalidParentheses(self, s: str) -> List[str]:
+        self.res = []
+        lremove, rremove = 0, 0
+        for i in s:
+            if i == "(":
+                lremove += 1
+            elif i == ")":
+                if lremove == 0:
+                    rremove += 1
+                else:
+                    lremove -= 1
+
+        def Valid(str):
+            cnt = 0
+            for c in str:
+                if c == '(':
+                    cnt += 1
+                elif c == ')':
+                    cnt -= 1
+                    if cnt < 0:
+                        return False
+            return cnt == 0
+
+
+        def helper(string, start, lremove, rremove):
+            
+            if lremove ==0 and rremove == 0:
+                if Valid(string):
+                    self.res.append(string)
+                    return
+            
+            for i in range(start, len(string)):
+                if i > start and string[i] == string[i - 1]:
+                    continue
+                if lremove+rremove > len(string)-i:
+                    break
+                if string[i] == "(" and lremove > 0:
+                    helper(string[:i]+string[i+1:], i, lremove-1, rremove)
+                if string[i] == ")" and rremove > 0:
+                    helper(string[:i]+string[i+1:], i, lremove, rremove-1)
+        
+        helper(s, 0, lremove, rremove)
+        return self.res
+        
+
+
+```
