@@ -3,6 +3,9 @@
   求出在给定区间[A,B]内，符合条件P（i）的数i的个数。
   条件P（i）一般与数的大小无关，而是与数的组成有关。
   
+  
+## 例题
+788. 旋转数字
 ```
   class Solution:
     def rotatedDigits(self, n: int) -> int:
