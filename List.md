@@ -109,7 +109,27 @@ for i in range(m):
 return dp[m][n]
 ```
 
-# 七、特殊处理方法
+# 七、哈希表
+## 例题
+
+### 1. 把数组本身作为哈希表，节约空间复杂度
+448. 找到所有数组中消失的数字
+```
+class Solution:
+    def findDisappearedNumbers(self, nums: List[int]) -> List[int]:
+        n = len(nums)
+        for i in range(n):
+            original = nums[i] % n
+            nums[original - 1] += n
+        
+
+        res = [i+1 for i,num in enumerate(nums) if num<=n]
+        return res
+```
+
+
+
+# 八、特殊处理方法
 ## 例题
 
 ### 1. 标记法，交换法
