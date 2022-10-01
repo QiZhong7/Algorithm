@@ -66,17 +66,34 @@ class Solution:
         return res
 ```
 
+# 四、计算前缀和
+通过计算前缀和 来降低时间复杂度
+## 例题 
 
-# 四、Boyer-Moore投票算法
-## 例题
+两数之和
 
-169.多数元素
+560.和为k的子数组
+```
+class Solution:
+    def subarraySum(self, nums: List[int], k: int) -> int:
+        res = 0
+        n = len(nums)
+        dic = {}
+        dic[0] = 1
+        presum = 0
+        for i in nums:
+            presum += i
+            if (presum - k) in dic.keys():
+                res += dic[presum-k]
+            if presum not in dic.keys():
+                dic[presum] = 1
+            else:
+                dic[presum] += 1
+            
+        return res
+```
 
-维护一个候选众数***candidate***,和他出现的次数***count***。***candidate***可以为任意值，***count***为0。
-遍历数组中的所有元素，对于每个元素***x***，如果***count***的值为0，就将***x***赋予给***candidate***，随后判断***x***：
-  1.如果x与candidate相等，那么count增加1
-  2.如果x与candidate不等，那么count减少1
-遍历完，***candidate***的值即为整个数组的众数
+
 
 
 # 五、模拟
@@ -180,5 +197,17 @@ class Solution:
         return n + 1
 
 ```
+
+
+# 九、Boyer-Moore投票算法
+## 例题
+
+169.多数元素
+
+维护一个候选众数***candidate***,和他出现的次数***count***。***candidate***可以为任意值，***count***为0。
+遍历数组中的所有元素，对于每个元素***x***，如果***count***的值为0，就将***x***赋予给***candidate***，随后判断***x***：
+  1.如果x与candidate相等，那么count增加1
+  2.如果x与candidate不等，那么count减少1
+遍历完，***candidate***的值即为整个数组的众数
 
 
