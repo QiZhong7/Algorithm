@@ -26,3 +26,43 @@ class Solution:
             j = j + directions[index][1]
         return res
 ```
+
+面试题13. 机器人运动轨迹
+
+```
+#倒推
+class Solution1:
+    def movingCount(self, m: int, n: int, k: int) -> int:
+        
+        def calculatedigit(num):
+            twosum = 0
+            while num>0:
+                twosum += num%10
+                num = num//10
+            return twosum
+        
+        visited = set([(0,0)])
+        for i in range(m):
+            for j in range(n):
+                if ((i-1,j) in visited or (i,j-1) in visited) and calculatedigit(i)+calculatedigit(j) <= k:
+                    visited.add((i,j))
+        return len(visited)
+     
+     
+# 递推
+class Solution2:
+    def movingCount(self, m: int, n: int, k: int) -> int:
+        from queue import Queue
+        q = Queue()
+        q.put((0, 0))
+        s = set()
+        while not q.empty():
+            x, y = q.get()
+            if (x, y) not in s and 0 <= x < m and 0 <= y < n and digitsum(x) + digitsum(y) <= k:
+                s.add((x, y))
+                for nx, ny in [(x + 1, y), (x, y + 1)]:
+                    q.put((nx, ny))
+        return len(s)
+
+
+```
